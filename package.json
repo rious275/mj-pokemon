@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.36.1",
     "eslint-config-airbnb-typescript": "^17.1.0",
     "next": "13.5.4",
     "react": "^18",
@@ -16,6 +17,7 @@
     "recoil": "^0.7.7"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^4.36.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
