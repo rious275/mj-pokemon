@@ -48,7 +48,8 @@ function Main() {
   });
 
   const errorMessage = useMemo(() => {
-    if (deferredSearch === '0' || Number(deferredSearch) > 1010) return '1~1010 까지의 번호를 입력해주세요.';
+    if (isNaN(Number(deferredSearch)) || deferredSearch === '0' || Number(deferredSearch) > 1010)
+      return '1~1010 까지의 번호를 입력해주세요.';
     return '';
   }, [deferredSearch]);
 
