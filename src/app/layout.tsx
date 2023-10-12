@@ -1,20 +1,24 @@
+import ReactQueryProvider from '@/libs/reactQuery/reactQueryProvider';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import ReactQueryProvider from '@/libs/reactQuery/ReactQueryProvider';
+import RecoilRootProvider from '@/libs/recoil/recoilRootProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'mj-pokemon',
-  description: 'Pokemon Encyclopedia',
+  title: '포켓몬 도감',
+  description: 'pokemon api를 기반으로한 포켓몬 도감',
+  keywords: ['pokemon', 'pokemon dex', '포켓몬', '포켓몬 도감', '포켓몬 이름', '포켓몬 서식지'],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <RecoilRootProvider>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </RecoilRootProvider>
       </body>
     </html>
   );

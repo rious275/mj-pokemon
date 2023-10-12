@@ -6,10 +6,12 @@ import { zeroPadNumber } from '@/utils/filters';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Detail = () => {
   const { id: pokemonId }: { id: string } = useParams();
+
+  const [error, setError] = useState(false);
 
   const { data: pokemonDetail, isLoading } = useQuery({
     queryKey: ['pokemonDetail', pokemonId],
@@ -26,7 +28,18 @@ const Detail = () => {
 
   return (
     <main className="flex flex-col items-center justify-between p-10 pt-16">
-      {pokemonId && <Image src={`${DETAIL_IMAGE_BASE_URL}/${pokemonId}.svg`} alt="image" width={200} height={160} priority />}
+      {pokemonId && error ? (
+        <div className="text-3xl">🤦‍♂️..</div>
+      ) : (
+        <Image
+          src={`${DETAIL_IMAGE_BASE_URL}/${pokemonId}.svg`}
+          alt="image"
+          width={200}
+          height={160}
+          priority
+          onError={() => setError(true)}
+        />
+      )}
 
       <div className="flex flex-col items-center pt-4">
         <span className="text-xl text-gray-400 pt-3">{zeroPadNumber(Number(pokemonId))}</span>
@@ -36,13 +49,17 @@ const Detail = () => {
         <p className="text-xl">{pokemonDetail?.description}</p>
 
         <div className="flex flex-col items-center">
-          {pokemonDetail?.chainIds.length && <h3 className="text-xl text-blue-500 pt-16 pb-6">진화트리</h3>}
+          {pokemonDetail?.chainPokemons.length ? <h3 className="text-xl text-blue-500 pt-16 pb-6">진화트리</h3> : null}
           <div className="flex items-center gap-10">
-            {pokemonDetail?.chainIds.map(chainId => (
-              <React.Fragment key={chainId}>
+            {pokemonDetail?.chainPokemons.map(chainPokemon => (
+              <React.Fragment key={chainPokemon.id}>
                 <div>
-                  <Image src={`${DETAIL_IMAGE_BASE_URL}/${chainId}.svg`} alt="image" width={80} height={0} priority />
-                  <h4 className="text-center pt-2">이상해씨</h4>
+                  {error ? (
+                    <div className="text-3xl">🤦‍♂️..</div>
+                  ) : (
+                    <Image src={chainPokemon.image} alt="image" width={80} height={0} priority onError={() => setError(true)} />
+                  )}
+                  <h4 className="text-center pt-2">{chainPokemon.name}</h4>
                 </div>
                 <span className="last:hidden">&#62;</span>
               </React.Fragment>
