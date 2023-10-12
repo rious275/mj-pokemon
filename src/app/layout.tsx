@@ -1,8 +1,7 @@
-import ReactQueryProvider from '@/libs/reactQuery/reactQueryProvider';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import RecoilRootProvider from '@/libs/recoil/recoilRootProvider';
+import Provider from './Provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,9 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <RecoilRootProvider>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-        </RecoilRootProvider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
