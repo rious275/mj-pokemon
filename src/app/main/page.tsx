@@ -58,7 +58,7 @@ function Main() {
         <h1 className="pb-8 text-center text-blue-500 font-bold">포켓몬 도감</h1>
         <input
           type="search"
-          className="focus:outline-none w-80 border-b px-1 py-2"
+          className="focus:outline-none w-80 border-b px-1 py-2 bg-white"
           onInput={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}
           placeholder="포켓몬의 번호를 입력해주세요.(1~1010)"
         />
